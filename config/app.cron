@@ -1,0 +1,2 @@
+
+* * * * * if [ -f /var/www/cron/jobby.php ]; then cd /var/www/cron && php jobby.php 1>> /dev/null 2>&1 ; fi

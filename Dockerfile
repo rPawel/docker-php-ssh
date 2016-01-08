@@ -13,4 +13,15 @@ RUN apt-get -q -y update \
  && DEBIAN_FRONTEND=newt
 
 ADD ./config /etc/
+ADD run.sh /
+ADD build.sh /
 
+RUN crontab -u user /etc/app.cron \
+ && chmod +x /build.sh /run.sh \
+ && bash /build.sh && rm -rf /build.sh \
+ && DEBIAN_FRONTEND=newt
+
+# PORTS
+EXPOSE 22
+
+ENTRYPOINT ["/run.sh"]
