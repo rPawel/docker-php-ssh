@@ -49,6 +49,12 @@ initPersistentConfigFolder() {
 }
 
 # runtime setup !
+if [ ! -d /var/www/cron ]; then
+    mkdir -p /var/www/cron
+    chown -R user:www-data /var/www/cron
+    chmod 750 /var/www/cron
+fi
+
 initPersistentConfigFolder ${PERSISTENT_CONFIG_FOLDER}
 initPersistentConfigFolder ${PERSISTENT_IGNORED_CONFIG_FOLDER}
 
