@@ -26,6 +26,14 @@ generateUserCredentials() {
   perl -e "print crypt(\"${_USER_PASSWORD}\", \"${_USER_SALT}\"),\"\n\"" > ${_SHADOW_FILE}
 }
 
+setUserCredentials() {
+  _USER_SALT=$(apg -a 1 -n 1 -m 8 -x 8 -q -M ncl)
+  _USER_PASSWORD=$2
+  echo "USER PASSWORD: "${_USER_PASSWORD}
+  _SHADOW_FILE=$1
+  perl -e "print crypt(\"${_USER_PASSWORD}\", \"${_USER_SALT}\"),\"\n\"" > ${_SHADOW_FILE}
+}
+
 applyUserCredentialsFromShadowFile() {
   _USER_NAME=$1
   _USER_ENC_PASSWORD=$(cat $2)
@@ -62,9 +70,11 @@ if [ ! -f "$PERSISTENT_CONFIG_FOLDER/$ROOT_SSH_FOLDER/id_rsa" ]; then
     generateRootCredentials ${KEYGEN} "$PERSISTENT_CONFIG_FOLDER/$ROOT_SSH_FOLDER" "id_rsa" "authorized_keys"
 fi
 
-if [ ! -f "$PERSISTENT_IGNORED_CONFIG_FOLDER/user-shadow" ]; then
+if [ "$CTNR_USER_PASSWORD" ]; then
+    setUserCredentials "$PERSISTENT_IGNORED_CONFIG_FOLDER/user-shadow" "$CTNR_USER_PASSWORD"
+elif [ ! -f "$PERSISTENT_IGNORED_CONFIG_FOLDER/user-shadow" ]; then
     generateUserCredentials "$PERSISTENT_IGNORED_CONFIG_FOLDER/user-shadow"
-fi 
+fi
 applyUserCredentialsFromShadowFile ${USER_NAME} "$PERSISTENT_IGNORED_CONFIG_FOLDER/user-shadow"
 
 if [ ! -f "$PERSISTENT_CONFIG_FOLDER/$GLOBAL_SSH_FOLDER/ssh_host_dsa_key" ]; then
