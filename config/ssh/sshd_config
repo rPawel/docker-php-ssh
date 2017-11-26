@@ -74,8 +74,6 @@ ClientAliveCountMax 0
 #MaxStartups 10:30:60
 #Banner /etc/issue.net
 
-PermitUserEnvironment no
-
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 

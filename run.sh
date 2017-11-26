@@ -56,13 +56,14 @@ initPersistentConfigFolder() {
   mkdir -p $1; chmod 700 $1
 }
 
-configSet() {
-    file=$1
-    var=$2
-    val=$3
-    if [ -n "${val}" ]; then
-        echo "Setting $var to $val in $file"
-        sed -i "s/^\($var\s*\).*$/\1$val/" $file
+setAppEnv() {
+    if [ -n "$CTNR_APP_ENV" ]; then
+        echo "== CONTAINER IS STARTING IN CTNR_APP_ENV=$CTNR_APP_ENV MODE =="
+        echo "export CTNR_APP_ENV=$CTNR_APP_ENV" > /etc/profile.d/ctnr_app_env.sh
+        chmod 644 /etc/profile.d/ctnr_app_env.sh
+    else
+        echo "== CONTAINER IS STARTING WITHOUT CTNR_APP_ENV BEING SET =="
+        rm -f /etc/profile.d/ctnr_app_env.sh
     fi
 }
 
@@ -93,20 +94,7 @@ fi
 
 cp -ar ${PERSISTENT_CONFIG_FOLDER}/* ${VOLATILE_CONFIG_FOLDER}
 
-if [ -n "$CTNR_APP_ENV" ]; then
-    echo "== CONTAINER IS STARTING IN CTNR_APP_ENV=$CTNR_APP_ENV MODE =="
-    mkdir -p /var/www/app/.ssh
-    chmod 700 /var/www/app/.ssh
-    chown user:www-data /var/www/app/.ssh
-    echo "CTNR_APP_ENV=$CTNR_APP_ENV" > /var/www/app/.ssh/environment
-    chmod 444 /var/www/app/.ssh/environment
-    chown root: /var/www/app/.ssh/environment
-    configSet /etc/ssh/sshd_config PermitUserEnvironment yes
-else
-    echo "== CONTAINER IS STARTING WITHOUT CTNR_APP_ENV BEING SET =="
-    rm -f /var/www/app/.ssh/environment
-    configSet /etc/ssh/sshd_config PermitUserEnvironment no
-fi
+setAppEnv
 
 # start container
 exec /usr/bin/supervisord -c /etc/supervisord.conf
