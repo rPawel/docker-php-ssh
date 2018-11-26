@@ -1,10 +1,10 @@
-FROM rpawel/ubuntu:xenial
+FROM rpawel/ubuntu:bionic
 
 RUN apt-get -q -y update \
  && apt-get dist-upgrade -y --no-install-recommends \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server apg \
   php php-cli php-dev php-pear php-common php-apcu \
-  php-mcrypt php-gd php-mysql php-curl php-json php-intl php-xsl php-ssh2 php-mbstring \
+  php-gd php-mysql php-curl php-json php-intl php-xsl php-ssh2 php-mbstring \
   php-zip php-memcached php-memcache php-xdebug php-imap \
   imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php-imagick trimage \
   exim4 git subversion \
