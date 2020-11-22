@@ -1,4 +1,4 @@
-FROM rpawel/ubuntu:bionic
+FROM rpawel/ubuntu:focal
 
 RUN apt-get -q -y update \
  && apt-get dist-upgrade -y --no-install-recommends \
@@ -9,7 +9,7 @@ RUN apt-get -q -y update \
   imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php-imagick trimage \
   libmcrypt-dev libmcrypt4 \  
   exim4 git subversion locales composer \
- && pecl install mcrypt-1.0.1 \
+ && pecl install mcrypt-1.0.3 \
  && phpenmod imap && phpdismod xdebug \
  && useradd -d /var/www/app --no-create-home --shell /bin/bash -g www-data -G adm user \
  && mkdir -p /var/run/sshd \
