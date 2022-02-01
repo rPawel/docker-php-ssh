@@ -19,8 +19,7 @@ ADD ./config /etc/
 ADD run.sh /
 ADD build.sh /
 
-RUN update-exim4.conf \
- && phpenmod mcrypt \
+RUN phpenmod mcrypt \
  && crontab -u user /etc/app.cron \
  && chmod +x /build.sh /run.sh \
  && bash /build.sh && rm -rf /build.sh \
