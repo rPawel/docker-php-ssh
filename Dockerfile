@@ -13,6 +13,7 @@ RUN apt -q -y update && \
     exim4 git locales && \
     phpdismod xdebug && \
     useradd -d /var/www/app --no-create-home --shell /bin/bash -g www-data -G adm user && \
+    mkdir -p /var/run/sshd && \
     mkdir -p /var/log/supervisor
 
 # Config
