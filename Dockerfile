@@ -5,11 +5,11 @@ RUN apt -q -y update && \
     apt -q -y update && \
     apt dist-upgrade -y --no-install-recommends && \
     DEBIAN_FRONTEND=noninteractive apt install -y -q --no-install-recommends \
-    openssh-server apg php8.2 php8.2-cli php8.2-dev php8.2-common php8.2-apcu \
-    php8.2-gd php8.2-mysql php8.2-curl php8.2-intl php8.2-xsl php8.2-ssh2 php8.2-mbstring \
-    php8.2-zip php8.2-memcached php8.2-memcache php8.2-redis php8.2-xdebug php8.2-imap \
-    php8.2-bcmath php8.2-soap \
-    imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php8.2-imagick trimage \
+    openssh-server apg php8.3 php8.3-cli php8.3-dev php8.3-common php8.3-apcu \
+    php8.3-gd php8.3-mysql php8.3-curl php8.3-intl php8.3-xsl php8.3-ssh2 php8.3-mbstring \
+    php8.3-zip php8.3-memcached php8.3-memcache php8.3-redis php8.3-xdebug php8.3-imap \
+    php8.3-bcmath php8.3-soap \
+    imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php8.3-imagick trimage \
     exim4 git locales && \
     phpdismod xdebug && \
     useradd -d /var/www/app --no-create-home --shell /bin/bash -g www-data -G adm user && \
