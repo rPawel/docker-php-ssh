@@ -1,4 +1,4 @@
-FROM rpawel/ubuntu:jammy
+FROM rpawel/ubuntu:noble
 
 RUN apt -q -y update && \
     add-apt-repository ppa:ondrej/php -y && \
