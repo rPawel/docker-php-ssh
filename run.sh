@@ -95,6 +95,7 @@ fi
 cp -ar ${PERSISTENT_CONFIG_FOLDER}/* ${VOLATILE_CONFIG_FOLDER}
 
 setAppEnv
+update-exim4.conf
 
 # start container
 exec /usr/bin/supervisord -c /etc/supervisord.conf
