@@ -7,8 +7,8 @@ RUN apt-get -q -y update \
   php-gd php-mysql php-curl php-json php-intl php-xsl php-ssh2 php-mbstring \
   php-zip php-memcached php-memcache php-redis php-xdebug php-imap php-bcmath \
   imagemagick graphicsmagick graphicsmagick-libmagick-dev-compat php-imagick trimage \
-  libmcrypt-dev libmcrypt4 \  
-  exim4 git subversion locales composer \
+  libmcrypt-dev libmcrypt4 \
+  exim4 git subversion locales \
  && pecl install mcrypt-1.0.3 \
  && phpenmod imap && phpdismod xdebug \
  && useradd -d /var/www/app --no-create-home --shell /bin/bash -g www-data -G adm user \
